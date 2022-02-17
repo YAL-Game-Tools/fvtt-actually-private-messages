@@ -24,4 +24,4 @@ This software is distributed under the [MIT License](./LICENSE).
 
 ## Credits
 
-Inspired by [Actually Private Rolls module](https://github.com/syl3r86/Actually-Private-Rolls) by Felix Müller.
+Inspired by [Actually Private Rolls](https://github.com/syl3r86/Actually-Private-Rolls) module by Felix Müller.
