@@ -1,6 +1,6 @@
 # Private Rolls
 
-This enforces private rolls to be invisible with no new message notification, this also silences private rolls by proxy.
+Enforces private rolls to be invisible with no new message notification. This also silences private rolls (removes dice roll sounds) by proxy.
 
   ✅ If you like private rolls being super private, this is for you.
 
