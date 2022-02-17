@@ -1,7 +1,7 @@
 {
 	"name": "private-rolls",
 	"title": "Private Rolls",
-	"description": "Enforces privacy for rolls by eliminating the rolling sound and new message notifications.",
+	"description": "Enforces privacy for rolls by hiding the messages, eliminating new message notifications, and silencing the roll sound of private rolls.",
 
 	"manifestPlusVersion": "1.1.0",
 
