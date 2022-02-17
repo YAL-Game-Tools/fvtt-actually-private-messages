@@ -7,11 +7,11 @@ const CFG = {
  *
  * @param {ChatMessage} cm
  */
-function isMessageVisible(cm, user) {
+function isMessageVisible(cm) {
 	const whisper = cm.data.whisper || [],
 		isWhisper = whisper.length > 0,
 		isBlind = isWhisper && cm.data.blind;
-	return isWhisper ? whisper.includes(user.id) || cm.isAuthor && !isBlind : true;
+	return isWhisper ? whisper.includes(game.user.id) || cm.isAuthor && !isBlind : true;
 }
 
 /**
@@ -23,10 +23,7 @@ function isMessageVisible(cm, user) {
 function renderChatMessageEvent(cm, jq) {
 	if (game.user.isGM) return;
 	const html = jq[0];
-
-	const user = game.user;
-
-	if (isMessageVisible(cm, user)) html.style.removeProperty('display');
+	if (isMessageVisible(cm)) html.style.removeProperty('display');
 	else html.style.display = 'none';
 }
 
@@ -41,8 +38,7 @@ Hooks.on('renderChatMessage', renderChatMessageEvent);
  */
 function chatLogNotifyWrapper(wrapped, cm) {
 	this._lastMessageTime = Date.now();
-	const visible = isMessageVisible(cm);
-	if (!visible) return;
+	if (!isMessageVisible(cm)) return;
 	wrapped(cm);
 }
 
