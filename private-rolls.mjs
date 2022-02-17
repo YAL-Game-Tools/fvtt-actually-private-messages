@@ -37,13 +37,13 @@ Hooks.on('renderChatMessage', renderChatMessageEvent);
  * Eliminate new message notification if the message is not visible.
  *
  * @param {Function} wrapped
- * @param {ChatMessage} msg
+ * @param {ChatMessage} cm
  */
-function chatLogNotifyWrapper(wrapped, msg) {
+function chatLogNotifyWrapper(wrapped, cm) {
 	this._lastMessageTime = Date.now();
-	const visible = isMessageVisible(msg);
+	const visible = isMessageVisible(cm);
 	if (!visible) return;
-	wrapped(msg);
+	wrapped(cm);
 }
 
 Hooks.once('init', () => {
