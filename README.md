@@ -1,4 +1,4 @@
-# Private Rolls
+# Actually Private Rolls
 
 Enforces private rolls to be invisible with no new message notification. This also silences private rolls (removes dice roll sounds) by proxy.
 

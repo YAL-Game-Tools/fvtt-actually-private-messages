@@ -1,6 +1,6 @@
 {
-	"name": "private-rolls",
-	"title": "Private Rolls",
+	"name": "actually-private-rolls",
+	"title": "Actually Private Rolls",
 	"description": "Enforces privacy for rolls by hiding the messages, eliminating new message notifications, and silencing the roll sound of private rolls.",
 
 	"manifestPlusVersion": "1.1.0",
@@ -11,7 +11,7 @@
 		{ "name": "MKAh", "url": "https://gitlab.com/mkahvi", "discord": "Mana#4176", "ko-fi": "mkahvi" }
 	],
 
-	"esmodules": [ "private-rolls.mjs" ],
+	"esmodules": [ "actually-private-rolls.mjs" ],
 
 	"minimumCoreVersion": "0.8.8",
 	"compatibleCoreVersion": "9",

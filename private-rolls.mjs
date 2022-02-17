@@ -1,5 +1,5 @@
 const CFG = {
-	module: 'private-rolls'
+	module: 'actually-private-rolls'
 };
 
 /**
