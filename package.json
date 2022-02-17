@@ -1,0 +1,22 @@
+{
+	"private": true,
+	"engines": {
+		"node": ">=16.0.0"
+	},
+	"devDependencies": {
+		"@babel/eslint-parser": "^7.17.0",
+		"eslint": "^8.9.0",
+		"eslint-plugin-optimize-regex": "^1.2.1",
+		"gulp": "^4.0.2",
+		"gulp-clean-css": "^4.3.0",
+		"gulp-less": "^5.0.0"
+	},
+	"scripts": {
+		"watch": "npx gulp watch",
+		"lint:js": "npx eslint . --ext js,mjs --cache",
+		"lint:js:fix": "npx eslint . --ext js,mjs --cache --fix",
+		"release": "npx gulp release",
+		"less": "npx less --source-map ./less/turn-announcer.less ./css/turn-announcer.css",
+		"less:watch": "npx less-watch-compiler --source-map ./less ./css turn-announcer.less"
+	}
+}

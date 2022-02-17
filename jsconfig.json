@@ -1,0 +1,47 @@
+{
+	"$schema": "https://json.schemastore.org/jsconfig",
+	"compilerOptions": {
+		"target": "es2020",
+		"module": "es6",
+		"lib": [
+			"dom",
+			"es6",
+			"es7",
+			"es2020",
+			"esnext"
+		],
+		"types": [
+			"@league-of-foundry-developers/foundry-vtt-types"
+		],
+		"moduleResolution": "node",
+		"skipLibCheck": true,
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"checkJs": true,
+		"allowSyntheticDefaultImports": false,
+		"disableReferencedProjectLoad": true,
+		"experimentalDecorators": false,
+		"isolatedModules": true,
+		"strict": true,
+		"alwaysStrict": true,
+		"strictFunctionTypes": true,
+		"strictBindCallApply": true,
+		"strictNullChecks": true,
+		"strictPropertyInitialization": true,
+		"forceConsistentCasingInFileNames": true,
+		"newLine": "lf"
+	},
+	"display": "Recommended",
+	"exclude": [
+		"node_modules",
+		"template"
+	],
+	"typeAcquisition": {
+		"enable": true,
+		"include": [
+			"jquery",
+			"handlebars",
+			"@league-of-foundry-developers/foundry-vtt-types"
+		]
+	}
+}
