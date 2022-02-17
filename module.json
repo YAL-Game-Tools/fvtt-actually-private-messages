@@ -1,0 +1,34 @@
+{
+	"name": "private-rolls",
+	"title": "Private Rolls",
+	"description": "Enforces privacy for rolls by eliminating the rolling sound and new message notifications.",
+
+	"manifestPlusVersion": "1.1.0",
+
+	"version": "1.0.0",
+	"author": "MKAh",
+	"authors": [
+		{ "name": "MKAh", "url": "https://gitlab.com/mkahvi", "discord": "Mana#4176", "ko-fi": "mkahvi" }
+	],
+
+	"esmodules": [ "private-rolls.mjs" ],
+
+	"minimumCoreVersion": "0.8.8",
+	"compatibleCoreVersion": "9",
+
+	"dependencies": [
+		{ "name": "lib-wrapper", "type": "module" }
+	],
+
+	"conflicts": [
+		{ "name": "mkah-private-rolls" }
+	],
+
+	"license": "LICENSE",
+	"readme": "README.md",
+
+	"manifest": "https://gitlab.com/koboldworks/agnostic/private-rolls/-/raw/latest/module.json",
+	"download": "https://gitlab.com/koboldworks/agnostic/private-rolls/-/archive/1.0.0/private-rolls-1.0.0.zip",
+	"url": "https://gitlab.com/koboldworks/agnostic/private-rolls",
+	"bugs": "https://gitlab.com/koboldworks/agnostic/private-rolls/-/issues"
+}
