@@ -11,6 +11,7 @@ function isMessageVisible(cm) {
 	const whisper = cm.data.whisper || [],
 		isWhisper = whisper.length > 0,
 		isBlind = isWhisper && cm.data.blind;
+	// console.log('DEBUG | ACTUALLY PRIVATE ROLLS:', game.user);
 	return isWhisper ? whisper.includes(game.user.id) || cm.isAuthor && !isBlind : true;
 }
 
@@ -21,6 +22,8 @@ function isMessageVisible(cm) {
  * @param {JQuery} jq
  */
 function renderChatMessageEvent(cm, jq) {
+	console.log('DEBUG | ACTUALLY PRIVATE ROLLS:', game.user);
+
 	if (game.user.isGM) return;
 	const html = jq[0];
 	if (isMessageVisible(cm)) html.style.removeProperty('display');
@@ -38,6 +41,7 @@ Hooks.on('renderChatMessage', renderChatMessageEvent);
  */
 function chatLogNotifyWrapper(wrapped, cm) {
 	this._lastMessageTime = Date.now();
+	console.log('DEBUG | ACTUALLY PRIVATE ROLLS:', game.user);
 	if (!isMessageVisible(cm)) return;
 	wrapped(cm);
 }
