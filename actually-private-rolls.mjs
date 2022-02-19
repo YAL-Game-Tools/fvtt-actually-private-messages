@@ -22,7 +22,7 @@ function isMessageVisible(cm) {
  * @param {JQuery} jq
  */
 function renderChatMessageEvent(cm, jq) {
-	console.log('DEBUG | ACTUALLY PRIVATE ROLLS:', game.user);
+	// console.log('DEBUG | ACTUALLY PRIVATE ROLLS:', game.user);
 
 	if (game.user.isGM) return;
 	const html = jq[0];
@@ -41,7 +41,7 @@ Hooks.on('renderChatMessage', renderChatMessageEvent);
  */
 function chatLogNotifyWrapper(wrapped, cm) {
 	this._lastMessageTime = Date.now();
-	console.log('DEBUG | ACTUALLY PRIVATE ROLLS:', game.user);
+	// console.log('DEBUG | ACTUALLY PRIVATE ROLLS:', game.user);
 	if (!isMessageVisible(cm)) return;
 	wrapped(cm);
 }
