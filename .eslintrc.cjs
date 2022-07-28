@@ -3,7 +3,7 @@ module.exports = {
 	env: {
 		jquery: true,
 		browser: true,
-		es2021: true,
+		es2022: true,
 		node: true
 	},
 	plugins: ['optimize-regex'],
@@ -12,7 +12,6 @@ module.exports = {
 		'plugin:optimize-regex/recommended'
 	],
 	parserOptions: {
-		ecmaVersion: 2021, // = 12; redundant with es2021 option
 		sourceType: 'module',
 		requireConfigFile: false,
 		ecmaFeatures: {
