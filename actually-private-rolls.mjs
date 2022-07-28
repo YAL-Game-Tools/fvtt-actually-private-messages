@@ -2,15 +2,19 @@ const CFG = {
 	module: 'actually-private-rolls'
 };
 
+const gen10 = () => game.release.generation >= 10;
+const getDocData = (doc) => gen10() ? doc : doc.data;
+
 /**
  * Test message visibility.
  *
  * @param {ChatMessage} cm
  */
 function isMessageVisible(cm) {
-	const whisper = cm.data.whisper || [],
+	const cmData = getDocData(cm);
+	const whisper = cmData.whisper || [],
 		isWhisper = whisper.length > 0,
-		isBlind = isWhisper && cm.data.blind;
+		isBlind = isWhisper && cmData.blind;
 	// console.log('DEBUG | ACTUALLY PRIVATE ROLLS:', game.user);
 	return isWhisper ? whisper.includes(game.user.id) || cm.isAuthor && !isBlind : true;
 }
@@ -19,13 +23,12 @@ function isMessageVisible(cm) {
  * Hide private messages entirely.
  *
  * @param {ChatMessage} cm
- * @param {JQuery} jq
+ * @param {JQuery} html
  */
-function renderChatMessageEvent(cm, jq) {
+function renderChatMessageEvent(cm, [html]) {
 	// console.log('DEBUG | ACTUALLY PRIVATE ROLLS:', game.user);
 
 	if (game.user.isGM) return;
-	const html = jq[0];
 	if (isMessageVisible(cm)) html.style.removeProperty('display');
 	else html.style.display = 'none';
 }
