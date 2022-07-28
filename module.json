@@ -6,10 +6,15 @@
 
 	"version": "1.0.0.2",
 	"authors": [
-		{ "name": "MKAh", "url": "https://gitlab.com/mkahvi", "discord": "Mana#4176", "ko-fi": "mkahvi" }
+		{
+			"name": "MKAh",
+			"url": "https://gitlab.com/mkahvi",
+			"discord": "Mana#4176",
+			"ko-fi": "mkahvi"
+		}
 	],
 
-	"esmodules": [ "actually-private-rolls.mjs" ],
+	"esmodules": ["actually-private-rolls.mjs"],
 
 	"minimumCoreVersion": "0.8.8",
 	"compatibleCoreVersion": "10",
@@ -18,15 +23,15 @@
 		"verified": 10
 	},
 
-	"dependencies": [
-		{ "name": "lib-wrapper", "type": "module" }
-	],
+	"dependencies": [{ "name": "lib-wrapper", "type": "module" }],
 	"relationships": {
-		"requires": [{
-			"id": "lib-wrapper",
-			"type": "module",
-			"compatibility": { "verified": "1.12" }
-		}]
+		"requires": [
+			{
+				"id": "lib-wrapper",
+				"type": "module",
+				"compatibility": { "verified": "1.12" }
+			}
+		]
 	},
 
 	"license": "LICENSE",

@@ -8,7 +8,13 @@
 		"@babel/eslint-parser": "^7.18.9",
 		"eslint": "^8.20.0",
 		"eslint-plugin-optimize-regex": "^1.2.1",
+		"husky": "^8.0.1",
+		"lint-staged": "^13.0.3",
 		"prettier": "^2.7.1"
+	},
+	"lint-staged": {
+		"*.json": "prettier --write",
+		"*.md": "prettier --write"
 	},
 	"scripts": {
 		"lint:js": "npx eslint . --ext js,mjs --cache",

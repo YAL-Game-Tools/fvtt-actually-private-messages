@@ -3,13 +3,7 @@
 	"compilerOptions": {
 		"target": "es2020",
 		"module": "es6",
-		"lib": [
-			"dom",
-			"es6",
-			"es7",
-			"es2020",
-			"esnext"
-		],
+		"lib": ["dom", "es6", "es7", "es2020", "esnext"],
 		"types": ["@league-of-foundry-developers/foundry-vtt-types/index-lenient"],
 		"moduleResolution": "node",
 		"skipLibCheck": true,
@@ -30,10 +24,7 @@
 		"newLine": "lf"
 	},
 	"display": "Recommended",
-	"exclude": [
-		"node_modules",
-		"template"
-	],
+	"exclude": ["node_modules", "template"],
 	"typeAcquisition": {
 		"enable": true,
 		"include": [

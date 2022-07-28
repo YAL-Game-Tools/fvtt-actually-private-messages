@@ -2,13 +2,13 @@
 
 Enforces private rolls to be invisible with no new message notification. This also silences private rolls (removes dice roll sounds) by proxy.
 
-  ✅ If you like private rolls being super private, this is for you.
+✅ If you like private rolls being super private, this is for you.
 
 This module was originally developed as an unregistered micro module, though that version has been discontinued: <https://gitlab.com/mkahvi/fvtt-micro-modules/-/tree/master/private-rolls>
 
 ## Install
 
-Manifest URL:  <https://gitlab.com/koboldworks/agnostic/private-rolls/-/raw/latest/module.json>
+Manifest URL: <https://gitlab.com/koboldworks/agnostic/private-rolls/-/raw/latest/module.json>
 
 ## Attribution
 
