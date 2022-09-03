@@ -8,7 +8,7 @@ This module was originally developed as an unregistered micro module, though tha
 
 ## Install
 
-Manifest URL: <https://gitlab.com/koboldworks/agnostic/private-rolls/-/raw/latest/module.json>
+Manifest URL: <https://gitlab.com/koboldworks/agnostic/private-rolls/-/releases/permalink/latest/downloads/module.json">
 
 ## Attribution
 

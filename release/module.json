@@ -3,7 +3,7 @@
 	"name": "actually-private-rolls",
 	"title": "Actually Private Rolls",
 	"description": "Enforces privacy for rolls by hiding the messages, eliminating new message notifications, and silencing the roll sound of private rolls.",
-	"version": "1.1.1",
+	"version": "1.1.1.1",
 	"authors": [
 		{
 			"name": "MKAh",
@@ -35,8 +35,8 @@
 	"license": "LICENSE",
 	"readme": "README.md",
 	"changelog": "CHANGELOG.md",
-	"manifest": "https://gitlab.com/koboldworks/agnostic/private-rolls/-/raw/latest/module.json",
-	"download": "https://gitlab.com/koboldworks/agnostic/private-rolls/-/archive/1.1.1/private-rolls-1.1.1.zip",
+	"manifest": "https://gitlab.com/koboldworks/agnostic/private-rolls/-/releases/permalink/latest/downloads/module.json",
+	"download": "https://gitlab.com/koboldworks/agnostic/private-rolls/-/releases/1.1.1.1/downloads/private-rolls.zip",
 	"url": "https://gitlab.com/koboldworks/agnostic/private-rolls",
 	"bugs": "https://gitlab.com/koboldworks/agnostic/private-rolls/-/issues"
 }
