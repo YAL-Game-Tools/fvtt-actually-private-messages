@@ -1,12 +1,15 @@
 {
 	"private": true,
-	"main": "actually-private-rolls.mjs",
+	"main": "private-rolls.mjs",
 	"engines": {
 		"node": ">=16.0.0"
 	},
 	"type": "module",
 	"devDependencies": {
 		"@babel/eslint-parser": "^7.18.9",
+		"@league-of-foundry-developers/foundry-vtt-types": "^9.280.0",
+		"esbuild": "^0.14.54",
+		"esbuild-plugin-copy": "^1.3.0",
 		"eslint": "^8.20.0",
 		"eslint-plugin-optimize-regex": "^1.2.1",
 		"husky": "^8.0.1",
@@ -20,7 +23,10 @@
 	"scripts": {
 		"lint:js": "npx eslint . --ext js,mjs --cache",
 		"lint:js:fix": "npx eslint . --ext js,mjs --cache --fix",
-		"release": "node ./scripts/release.mjs",
+		"release": "npm run build && node ./scripts/release.mjs",
+		"build": "npm run js",
+		"js": "node ./scripts/esbuild.mjs",
+		"js:watch": "node ./scripts/esbuild.mjs --watch",
 		"prettier": "prettier --write --cache ."
 	}
 }

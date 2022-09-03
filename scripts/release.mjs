@@ -1,14 +1,18 @@
-import fs from 'fs';
+import fs from 'node:fs';
 import { execSync } from 'node:child_process';
 
 // TODO: generate version and make sure it does not conflict with existing release tags.
 
 // module.json update
 
-const data = fs.readFileSync('./module.json');
+const MANIFEST = './release/module.json',
+	MANIFEST_SHIM = './module.json'; // for help with upgrading from old versions
+
+const data = fs.readFileSync(MANIFEST);
 const json = JSON.parse(data);
 
 const version = json.version;
+console.log('%cGenerating release%c:', 'color:gold', 'color:unset', json.version);
 const download = json.download;
 
 let sameVer = 0;
@@ -28,7 +32,7 @@ if (sameVer > 1) {
 }
 else {
 	json.download = mdownload;
-	fs.writeFileSync('./module.json', JSON.stringify(json, null, '\t'));
+	fs.writeFileSync(MANIFEST, JSON.stringify(json, null, '\t'));
 	console.log('module.json updated');
 }
 
@@ -43,12 +47,17 @@ if (chlog !== chlogu) {
 else
 	console.log('Changelog needs no update');
 
-// git tagging
+execSync(`npx prettier --write ${MANIFEST}`);
 
+// Old version shim
+fs.copyFileSync(MANIFEST, MANIFEST_SHIM);
+
+// git tagging
 console.log('\nGenerating release:', json.version);
 execSync('git add .');
 execSync(`git commit -m "${json.version}"`);
 execSync(`git tag -a ${json.version} -m "${json.version}"`);
+// execSync(`git tag -f latest`);
 console.log('Pushing release');
 execSync('git push');
 console.log('Pushing release tag');

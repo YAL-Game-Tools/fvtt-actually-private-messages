@@ -1,8 +1,6 @@
-node_modules/*
+node_modules
+dist
 *.code-workspace
 foundry*.js
-package-lock.json
-/Private/*
-testbed.js
 *.lock
 .eslintcache
