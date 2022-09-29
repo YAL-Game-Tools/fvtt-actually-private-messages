@@ -19,19 +19,8 @@
 		"minimum": "0.8.8",
 		"verified": 10
 	},
-	"dependencies": [
-		{
-			"name": "lib-wrapper"
-		}
-	],
-	"relationships": {
-		"requires": [
-			{
-				"id": "lib-wrapper",
-				"type": "module"
-			}
-		]
-	},
+	"dependencies": [{ "name": "lib-wrapper" }],
+	"relationships": { "requires": [{ "id": "lib-wrapper", "type": "module" }] },
 	"license": "LICENSE",
 	"readme": "README.md",
 	"changelog": "CHANGELOG.md",
