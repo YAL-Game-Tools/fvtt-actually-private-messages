@@ -29,6 +29,8 @@ function renderChatMessageEvent(cm, [html]) {
 	// console.log('DEBUG | ACTUALLY PRIVATE ROLLS:', game.user);
 
 	if (game.user.isGM) return;
+
+	// TODO: Change this to !important CSS rule
 	if (isMessageVisible(cm)) html.style.removeProperty('display');
 	else html.style.display = 'none';
 }
