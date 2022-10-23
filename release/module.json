@@ -14,7 +14,7 @@
 	],
 	"esmodules": ["private-rolls.mjs"],
 	"minimumCoreVersion": "0.8.8",
-	"compatibleCoreVersion": "10",
+	"compatibleCoreVersion": 10,
 	"compatibility": {
 		"minimum": "0.8.8",
 		"verified": 10
