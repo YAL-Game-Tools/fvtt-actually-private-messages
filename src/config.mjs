@@ -1,3 +1,6 @@
 export const CFG = {
-	id: 'actually-private-rolls'
+	id: 'actually-private-rolls',
+	SETTINGS: {
+		halfBlind: 'halfBlind'
+	}
 };

@@ -1,3 +1,10 @@
 {
-	"ActuallyPrivateRolls": {}
+	"ActuallyPrivateRolls": {
+		"Settings": {
+			"HalfBlind": {
+				"Label": "Half-blind",
+				"Hint": "Blind rolls are partially visible to message author. This solves the problem of players being uncertain if their roll even happened."
+			}
+		}
+	}
 }

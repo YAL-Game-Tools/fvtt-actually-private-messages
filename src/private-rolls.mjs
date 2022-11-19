@@ -6,18 +6,11 @@ import './settings.mjs';
  *
  * @param {ChatMessage} cm
  */
-const isMessageVisible = (cm) => {
-	const cmData = game.release.generation >= 10 ? cm : cm.data,
-		whisper = cmData.whisper ?? [],
-		isWhisper = whisper.length > 0,
-		isBlind = isWhisper && cmData.blind;
-
-	console.log({ isBlind, isWhisper, isAuthor: cm.isAuthor, cm });
-
+const isMessageVisible = ({ isBlind, isAuthor, isWhisper, whisper, cm } = {}) => {
 	// Blind rolls are not visible to author
-	if (isBlind && cm.isAuthor) return false;
+	if (isBlind && isAuthor) return false;
 	// Whispers are only visible to recipients and author
-	if (isWhisper) return cm.isAuthor || whisper.includes(game.user.id);
+	if (isWhisper) return isAuthor || whisper.includes(game.user.id);
 	// All others are visible
 	return true;
 }
@@ -32,10 +25,20 @@ const renderChatMessageEvent = (cm, [html]) => {
 	// GM always sees everything
 	if (game.user.isGM) return;
 
-	// TODO: Change this to !important CSS rule
+	const cmData = game.release.generation >= 10 ? cm : cm.data,
+		whisper = cmData.whisper ?? [],
+		isWhisper = whisper.length > 0,
+		isBlind = isWhisper && cmData.blind,
+		isAuthor = cm.isAuthor,
+		isVisible = isMessageVisible({ isWhisper, isBlind, isAuthor, whisper, cm });
+
 	const baseMsg = html.dataset.messageId ? html : html.closest('[data-message-id]');
-	console.log(baseMsg);
-	baseMsg.classList.toggle('actually-private-roll', !isMessageVisible(cm));
+	if (game.settings.get(CFG.id, CFG.SETTINGS.halfBlind) && isAuthor && isBlind) {
+		baseMsg?.querySelector('.message-content')?.replaceChildren();
+		// baseMsg?.querySelector('.flavor-text');
+	}
+	else
+		baseMsg.classList.toggle('actually-private-roll', !isVisible);
 }
 
 Hooks.on('renderChatMessage', renderChatMessageEvent);
@@ -49,7 +52,7 @@ Hooks.on('renderChatMessage', renderChatMessageEvent);
  */
 function chatLogNotifyWrapper(wrapped, cm) {
 	this._lastMessageTime = Date.now();
-	// console.log('DEBUG | ACTUALLY PRIVATE ROLLS:', game.user);
+
 	if (!isMessageVisible(cm)) return;
 	wrapped.call(this, cm);
 }

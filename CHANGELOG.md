@@ -1,5 +1,9 @@
 # Change Log
 
+## NEXT
+
+- New half-blind mode (enabled by default), hiding blind rolls only partially from authors.
+
 ## 1.1.1
 
 - New release mechanism and smaller install size.
