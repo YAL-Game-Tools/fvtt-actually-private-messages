@@ -1,6 +1,6 @@
 # Change Log
 
-## NEXT
+## 1.2.0
 
 - New half-blind mode (enabled by default), hiding blind rolls only partially from authors.
 

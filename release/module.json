@@ -3,7 +3,7 @@
 	"name": "actually-private-rolls",
 	"title": "Actually Private Rolls",
 	"description": "Enforces privacy for rolls by hiding the messages, eliminating new message notifications, and silencing the roll sound of private rolls.",
-	"version": "1.1.1.1",
+	"version": "1.2.0",
 	"authors": [
 		{
 			"name": "MKAh",
@@ -14,18 +14,35 @@
 	],
 	"esmodules": ["private-rolls.mjs"],
 	"styles": ["private-rolls.css"],
+	"languages": [
+		{
+			"lang": "en",
+			"path": "lang/en.json"
+		}
+	],
 	"minimumCoreVersion": "0.8.8",
 	"compatibility": {
 		"minimum": "0.8.8",
 		"verified": 10
 	},
-	"dependencies": [{ "name": "lib-wrapper" }],
-	"relationships": { "requires": [{ "id": "lib-wrapper", "type": "module" }] },
+	"dependencies": [
+		{
+			"name": "lib-wrapper"
+		}
+	],
+	"relationships": {
+		"requires": [
+			{
+				"id": "lib-wrapper",
+				"type": "module"
+			}
+		]
+	},
 	"license": "https://gitlab.com/koboldworks/agnostic/private-rolls/-/raw/main/LICENSE",
 	"readme": "https://gitlab.com/koboldworks/agnostic/private-rolls/-/raw/main/README.md",
 	"changelog": "https://gitlab.com/koboldworks/agnostic/private-rolls/-/raw/main/CHANGELOG.md",
 	"manifest": "https://gitlab.com/koboldworks/agnostic/private-rolls/-/releases/permalink/latest/downloads/module.json",
-	"download": "https://gitlab.com/koboldworks/agnostic/private-rolls/-/releases/1.1.1.1/downloads/private-rolls.zip",
+	"download": "https://gitlab.com/koboldworks/agnostic/private-rolls/-/releases/1.2.0/downloads/private-rolls.zip",
 	"url": "https://gitlab.com/koboldworks/agnostic/private-rolls",
 	"bugs": "https://gitlab.com/koboldworks/agnostic/private-rolls/-/issues"
 }
