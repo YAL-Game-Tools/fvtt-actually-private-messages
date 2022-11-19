@@ -62,3 +62,8 @@ Hooks.once('init', () => {
 	/* global libWrapper */
 	libWrapper.register(CFG.id, 'ChatLog.prototype.notify', chatLogNotifyWrapper, 'MIXED');
 });
+
+Hooks.once('ready', () => {
+	const mod = game.modules.get(CFG.id);
+	console.log('Actually Private Rolls |', mod.version);
+});
