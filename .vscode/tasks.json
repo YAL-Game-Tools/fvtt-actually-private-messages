@@ -1,0 +1,54 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "js",
+			"problemMatcher": [],
+			"label": "Build JS",
+			"detail": "node ./scripts/esbuild.mjs"
+		},
+		{
+			"type": "npm",
+			"script": "build",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "Build",
+			"detail": "npm run js && npm run sync"
+		},
+		{
+			"type": "shell",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"dependsOn": ["js:watch", "sync:watch", "sass:watch"],
+			"label": "Build & Watch",
+			"detail": "npm run js && npm run sync"
+		},
+		{
+			"type": "npm",
+			"script": "js:watch",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "js:watch",
+			"detail": "node ./scripts/esbuild.mjs --watch"
+		},
+		{
+			"type": "npm",
+			"script": "sync:watch",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "sync:watch",
+			"detail": "node ./scripts/sync-files.mjs --watch"
+		},
+		{
+			"type": "npm",
+			"script": "sass:watch",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "sass:watch",
+			"detail": "npx sass -s compressed --watch ./scss/private-rolls.scss ./dist/private-rolls.css"
+		}
+	]
+}

@@ -1,32 +1,36 @@
 {
-	"private": true,
-	"main": "private-rolls.mjs",
+	"source": "private-rolls.mjs",
 	"engines": {
 		"node": ">=16.0.0"
 	},
 	"type": "module",
 	"devDependencies": {
-		"@babel/eslint-parser": "^7.18.9",
 		"@league-of-foundry-developers/foundry-vtt-types": "^9.280.0",
-		"esbuild": "^0.14.54",
-		"esbuild-plugin-copy": "^1.3.0",
-		"eslint": "^8.20.0",
+		"chokidar": "^3.5.3",
+		"esbuild": "^0.15.14",
+		"eslint": "^8.28.0",
 		"eslint-plugin-optimize-regex": "^1.2.1",
-		"husky": "^8.0.1",
+		"husky": "^8.0.2",
 		"lint-staged": "^13.0.3",
-		"prettier": "^2.7.1"
+		"prettier": "^2.7.1",
+		"sass": "^1.56.1"
 	},
 	"lint-staged": {
-		"*.json": "prettier --write",
-		"*.md": "prettier --write"
+		"*.mjs": "eslint --cache --fix",
+		"*.json": "prettier --write"
 	},
 	"scripts": {
 		"lint:js": "npx eslint . --ext js,mjs --cache",
 		"lint:js:fix": "npx eslint . --ext js,mjs --cache --fix",
 		"release": "npm run build && node ./scripts/release.mjs",
-		"build": "npm run js",
+		"build": "npm run js && npm run sass && npm run sync",
+		"sync": "node ./scripts/sync-files.mjs",
+		"sync:watch": "node ./scripts/sync-files.mjs --watch",
 		"js": "node ./scripts/esbuild.mjs",
 		"js:watch": "node ./scripts/esbuild.mjs --watch",
+		"sass": "npx sass -s compressed ./scss/private-rolls.scss ./dist/private-rolls.css",
+		"sass:watch": "npx sass -s compressed --watch ./scss/private-rolls.scss ./dist/private-rolls.css",
 		"prettier": "prettier --write --cache ."
-	}
+	},
+	"private": true
 }

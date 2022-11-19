@@ -1,51 +1,38 @@
 import path from 'node:path';
 import esbuild from 'esbuild';
-import { copy } from 'esbuild-plugin-copy';
 import process from 'node:process';
 import fs from 'node:fs';
 
-const OUT_DIR = './dist';
+const IN_DIR = './src',
+	OUT_DIR = './dist';
 
-const packData = fs.readFileSync('./package.json');
-const packJSON = JSON.parse(packData);
-const mainFile = packJSON.main;
+const packData = fs.readFileSync('./package.json'),
+	packJSON = JSON.parse(packData),
+	mainFile = packJSON.source;
 
-const args = process.argv.slice(2);
-
-const watch = args.includes('--watch');
+const args = process.argv.slice(2),
+	watch = args.includes('--watch');
 
 async function build() {
 	const res = await esbuild.build({
-		entryPoints: [mainFile],
+		entryPoints: [path.join(IN_DIR, mainFile)],
 		bundle: true,
 		outfile: path.join(OUT_DIR, mainFile),
 		metafile: true,
-		sourcemap: true,
-		minify: true,
-		minifyIdentifiers: true,
-		minifyWhitespace: true,
-		minifySyntax: true,
+		sourcemap: false,
+		minifyIdentifiers: false,
+		minifyWhitespace: !watch,
+		minifySyntax: !watch,
 		keepNames: true,
 		platform: 'browser',
 		format: 'esm',
 		logLevel: 'info',
 		logLimit: 0,
-		treeShaking: true,
+		treeShaking: !watch,
 		color: true,
 		watch,
-		external: ['/node_modules/*'],
-		plugins: [
-			copy({
-				// verbose: true,
-				resolveFrom: 'out',
-				assets: [
-					{ from: ['./release/*', './*.md', './LICENSE'], to: '.' },
-					{ from: ['./lang/**/*'], to: 'lang', keepStructure: true },
-					{ from: ['./template/**/*.hbs'], to: 'template', keepStructure: true },
-				]
-			})
-		]
-	}).catch(e => process.exit(-1));
+	})
+		.catch(e => process.exit(-1));
 
 	// Display size of sources
 	try {
@@ -62,4 +49,4 @@ async function build() {
 	}
 }
 
-build();
+await build();

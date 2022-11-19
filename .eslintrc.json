@@ -1,0 +1,185 @@
+{
+	"env": {
+		"jquery": true,
+		"browser": true,
+		"es2022": true
+	},
+	"plugins": ["optimize-regex"],
+	"extends": ["eslint:recommended", "plugin:optimize-regex/recommended"],
+	"parserOptions": {
+		"sourceType": "module",
+		"ecmaVersion": "latest",
+		"ecmaFeatures": {
+			"globalReturn": false,
+			"impliedStrict": true
+		}
+	},
+	"rules": {
+		"no-undef": ["error", { "typeof": true }],
+		"no-global-assign": ["error"],
+		"no-var": ["error"],
+		// Styling
+		"quotes": ["error", "single"],
+		"quote-props": ["error", "as-needed"],
+		"brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
+		"curly": ["off", "multi-or-nest"],
+		// Spacing
+		"no-multi-spaces": ["error"],
+		"space-infix-ops": ["error"],
+		"no-trailing-spaces": ["error"],
+		"spaced-comment": ["error", "always"],
+		"semi-spacing": ["error"],
+		"rest-spread-spacing": ["error", "never"],
+		"template-curly-spacing": ["error", "never"],
+		"array-bracket-spacing": ["error", "never"],
+		"space-in-parens": ["error", "never"],
+		"no-irregular-whitespace": ["warn", { "skipRegExps": true }],
+		"block-spacing": ["error"],
+		"comma-spacing": ["error"],
+		"key-spacing": ["error"],
+		"keyword-spacing": ["error"],
+		"space-before-blocks": ["error"],
+		// Other
+		"comma-dangle": ["error", "only-multiline"],
+		"dot-location": ["error", "property"],
+		"no-lone-blocks": ["error"],
+		"no-empty-character-class": ["error"],
+		"no-duplicate-imports": ["error", { "includeExports": true }],
+		"no-array-constructor": ["error"],
+		"no-octal-escape": ["error"],
+		"no-self-compare": ["error"],
+		"no-template-curly-in-string": ["warn"],
+		"no-unneeded-ternary": ["error"],
+		"no-await-in-loop": ["warn"],
+		"no-loss-of-precision": ["warn"],
+		"no-useless-backreference": ["error"],
+		"require-atomic-updates": ["error"],
+		"array-callback-return": ["error"],
+		"no-return-await": ["error"],
+		"no-loop-func": ["error"],
+		"no-useless-concat": ["error"],
+		"no-useless-return": ["error"],
+		"prefer-regex-literals": ["error"],
+		"prefer-const": ["error"],
+		"prefer-named-capture-group": ["warn"],
+		// "no-use-before-define": ["error"],
+		// "no-magic-numbers": ["warn", { "ignore": [0,1] }],
+		"object-property-newline": ["error", { "allowAllPropertiesOnSameLine": true }],
+		"array-element-newline": [
+			"error",
+			{
+				"ArrayExpression": "consistent",
+				"ArrayPattern": "never"
+			}
+		],
+		"array-bracket-newline": ["error", "consistent"],
+		// Objects
+		"object-curly-newline": [
+			"warn",
+			{
+				"ObjectExpression": { "consistent": true },
+				"ObjectPattern": { "consistent": true },
+				"ImportDeclaration": "never",
+				"ExportDeclaration": "never"
+			}
+		],
+		"object-curly-spacing": ["error", "always"],
+		// Other
+		"implicit-arrow-linebreak": ["error", "beside"],
+		"linebreak-style": ["error", "unix"],
+		"lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
+		"padded-blocks": ["error", "never"],
+		"eol-last": ["error", "always"],
+		"no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1, "maxBOF": 0 }],
+		"indent": [
+			"error",
+			"tab",
+			{
+				"SwitchCase": 1,
+				"VariableDeclarator": 1,
+				"MemberExpression": 1
+			}
+		],
+		"class-methods-use-this": [
+			"off",
+			{
+				"exceptMethods": ["getData", "_updateObject"]
+			}
+		],
+		"no-unused-vars": ["warn", { "argsIgnorePattern": "^_", "destructuredArrayIgnorePattern": "^_" }],
+		"no-redeclare": ["warn", { "builtinGlobals": false }],
+		"no-shadow": [
+			"warn",
+			{
+				"builtinGlobals": true,
+				"hoist": "never",
+				"allow": ["event", "parent", "name"]
+			}
+		],
+		"strict": ["warn", "global"]
+	},
+	"globals": {
+		"ActorSheet": "readonly",
+		"ItemSheet": "readonly",
+		"ActiveEffect": "readonly",
+		"Item": "readonly",
+		"Actor": "readonly",
+		"Token": "readonly",
+		"Scene": "readonly",
+		"Combat": "readonly",
+		"Combatant": "readonly",
+		"TokenDocument": "readonly",
+		"Dialog": "readonly",
+		"ItemDirectory": "readonly",
+		"Application": "readonly",
+		"FormApplication": "readonly",
+		"DocumentSheet": "readonly",
+		"ChatMessage": "readonly",
+		"ChatLog": "readonly",
+		"FormDataExtended": "readonly",
+		"Roll": "readonly",
+		"RollPF": "readonly",
+		"CONFIG": "writable",
+		"CONST": "readonly",
+		"game": "readonly",
+		"ui": "readonly",
+		"canvas": "readonly",
+		"foundry": "readonly",
+		"duplicate": "readonly",
+		"deepClone": "readonly",
+		"isObjectEmpty": "readonly",
+		"diffObject": "readonly",
+		"getProperty": "readonly",
+		"setProperty": "readonly",
+		"mergeObject": "readonly",
+		"expandObject": "readonly",
+		"flattenObject": "readonly",
+		"isNewerVersion": "readonly",
+		"TokenConfig": "readonly",
+		"randomID": "readonly",
+		"loadTemplates": "readonly",
+		"renderTemplate": "readonly",
+		"getTemplate": "readonly",
+		"fromUuid": "readonly",
+		"fromUuidSync": "readonly",
+		"loadTexture": "readonly",
+		"Handlebars": "readonly",
+		"TextEditor": "readonly",
+		"Hooks": "readonly",
+		"Actors": "readonly",
+		"Macro": "readonly",
+		"CombatTracker": "readonly",
+		"Collection": "readonly",
+		"CompendiumCollection": "readonly",
+		"Compendium": "readonly",
+		"Die": "readonly",
+		"NumericTerm": "readonly",
+		"StringTerm": "readonly",
+		"DiceTerm": "readonly",
+		"ParentheticalTerm": "readonly",
+		"OperatorTerm": "readonly",
+		"TooltipManager": "readonly",
+		"PIXI": "readonly",
+		"Items": "readonly"
+	}
+}

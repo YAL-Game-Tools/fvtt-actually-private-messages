@@ -1,33 +1,31 @@
 import fs from 'node:fs';
 import { execSync } from 'node:child_process';
+import process from 'node:process';
 
 // TODO: generate version and make sure it does not conflict with existing release tags.
 
-// module.json update
-
 const MANIFEST = './release/module.json',
-	MANIFEST_SHIM = './module.json'; // for help with upgrading from old versions
+	CHANGELOG = './CHANGELOG.md';
 
-const data = fs.readFileSync(MANIFEST);
-const json = JSON.parse(data);
+const json = JSON.parse(fs.readFileSync(MANIFEST));
+const { version, download } = json;
 
-const version = json.version;
+// Check if tag for defined version already exists (except no output with no matching versions)
+const oldTagExists = execSync(`git tag -l ${version}`);
+if (oldTagExists.toString().split('\n').some(v => v === version)) {
+	console.error('Tag already exists for defined version:', version);
+	process.exit(0);
+}
+
 console.log('%cGenerating release%c:', 'color:gold', 'color:unset', json.version);
-const download = json.download;
 
-let sameVer = 0;
-const mdownload = download.replace(/(?<version>\d+(?:\.\d+){1,3})/gm, function (matched, oldversion, index, full, groups) {
-	if (oldversion === version) sameVer++;
-	// console.log({ matched, match: oldversion, index, full, groups })
-	// console.log(oldversion, version);
-	return version;
-});
+const mdownload = download.replace(/(?<version>\d+(?:\.\d+){1,3})/gm, version);
 
 console.log('Old download:', download);
 console.log('New download:', mdownload);
 
 // Replace version in download string
-if (sameVer > 1) {
+if (download === mdownload) {
 	console.log('module.json is up to date');
 }
 else {
@@ -37,20 +35,16 @@ else {
 }
 
 // changelog update
-const chlogFile = `./${json.changelog}`;
-const chlog = fs.readFileSync(chlogFile, { encoding: 'utf8' });
+const chlog = fs.readFileSync(CHANGELOG, { encoding: 'utf8' });
 const chlogu = chlog.replace(/^## NEXT$/m, `## ${json.version}`);
 if (chlog !== chlogu) {
 	console.log('Changelog updated');
-	fs.writeFileSync(chlogFile, chlogu, 'utf8');
+	fs.writeFileSync(CHANGELOG, chlogu, 'utf8');
 }
 else
 	console.log('Changelog needs no update');
 
 execSync(`npx prettier --write ${MANIFEST}`);
-
-// Old version shim
-fs.copyFileSync(MANIFEST, MANIFEST_SHIM);
 
 // git tagging
 console.log('\nGenerating release:', json.version);
@@ -65,4 +59,9 @@ execSync(`git push origin ${json.version}`);
 
 // done
 
-console.log('\nRelease', json.version, 'is ready!');
+console.log('\nRelease', json.version, 'is ready!\n');
+
+const releaseManifest = json.download.replace(/\/[\w-]+\.zip$/, '/module.json');
+
+console.log('Manifest:', releaseManifest);
+console.log('Download:', json.download);

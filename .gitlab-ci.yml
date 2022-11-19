@@ -9,7 +9,6 @@ stages:
   - test
   - build
   - prepare-release
-  - tag
   - release
 
 cache:
@@ -23,24 +22,6 @@ variables:
   PACKAGE_TYPE: module
   PACKAGE_REGISTRY_URL: $CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/$PACKAGE_NAME
   BUILD_DIRECTORY: dist
-
-tag-latest:
-  stage: tag
-  image: bitnami/git:latest
-  interruptible: true
-  rules:
-    - if: '$CI_COMMIT_TAG !~ "latest"'
-    - if: '$CI_COMMIT_TAG =~ /^\d+\.\d+\.\d+\.\d+$/'
-  before_script:
-    - git config --global user.name "${GITLAB_USER_NAME}"
-    - git config --global user.email "${GITLAB_USER_EMAIL}"
-    - git remote set-url origin  "https://${GITLAB_USER_LOGIN}:${CI_SECRET_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}"
-    - export TAG_ABBREV=`git describe --tags --abbrev=0`
-    - export TAG_COMMIT=`git show-ref -s refs/tags/${TAG_ABBREV}`
-  script:
-    - git remote show origin
-    - git tag -fa latest -m "${TAG_ABBREV}" ${TAG_COMMIT}
-    - git push origin --tags --force
 
 compile:
   stage: build
