@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.2.0.1
+
+- Fix chat message notification not behaving as expected since 1.2
+- Fix chat message notification behaving unexpectedly in some circumstances.
+
 ## 1.2.0
 
 - New half-blind mode (enabled by default), hiding blind rolls only partially from authors.
