@@ -1,12 +1,10 @@
-# Actually Private Rolls
+# Actually Private Messages (ex Actually Private Rolls)
 
-Enforces private rolls to be invisible with no new message notification. This also silences private rolls (removes dice roll sounds) by proxy.
+Enforces privacy for whispered and self targeted chat messages by hiding them from those they're not for, eliminating new message notifications, and silencing the roll sound of unseen rolls.
 
 Includes option to keep blind rolls partially visible to author, default enabled, to avoid issues with uncertainty of the roll happening.
 
 ✅ If you like private rolls being super private, this is for you.
-
-This module was originally developed as an unregistered micro module, though that version has been discontinued: <https://gitlab.com/mkahvi/fvtt-micro-modules/-/tree/master/private-rolls>
 
 ## Install
 

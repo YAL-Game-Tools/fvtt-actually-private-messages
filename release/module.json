@@ -1,14 +1,14 @@
 {
 	"id": "actually-private-rolls",
 	"name": "actually-private-rolls",
-	"title": "Actually Private Rolls",
-	"description": "Enforces privacy for rolls by hiding the messages, eliminating new message notifications, and silencing the roll sound of private rolls.",
+	"title": "Actually Private Messages (ex Actually Private Rolls)",
+	"description": "Enforces privacy for whispered and self targeted chat messages by hiding them from those they're not for, eliminating new message notifications, and silencing the roll sound of unseen rolls.",
 	"version": "1.2.0.1",
 	"authors": [
 		{
 			"name": "MKAh",
 			"url": "https://gitlab.com/mkahvi",
-			"discord": "Mana#4176",
+			"discord": "manaflower",
 			"ko-fi": "mkahvi"
 		}
 	],
@@ -23,7 +23,7 @@
 	"minimumCoreVersion": "0.8.8",
 	"compatibility": {
 		"minimum": "0.8.8",
-		"verified": 10
+		"verified": 11
 	},
 	"dependencies": [
 		{
