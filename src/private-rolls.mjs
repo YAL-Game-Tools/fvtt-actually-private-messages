@@ -44,8 +44,8 @@ function getUserName(cm) {
  * @param {JQuery} html
  */
 const renderChatMessageEvent = (cm, [html]) => {
-	// GM always sees everything
-	if (game.user.isGM) return;
+	// GM always sees everything?
+	if (game.user.isGM && game.settings.get(CFG.id, CFG.SETTINGS.allSeeingGM)) return;
 
 	const { isAuthor, isBlind, isVisible } = getMessageVisibility(cm);
 	const baseMsg = html.dataset.messageId ? html : html.closest('[data-message-id]');

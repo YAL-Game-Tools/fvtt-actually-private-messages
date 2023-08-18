@@ -1,6 +1,7 @@
 export const CFG = {
 	id: 'actually-private-rolls',
 	SETTINGS: {
-		halfBlind: 'halfBlind'
+		halfBlind: 'halfBlind',
+		allSeeingGM: 'allSeeingGM'
 	}
 };
