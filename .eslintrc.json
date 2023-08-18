@@ -5,7 +5,7 @@
 		"es2022": true
 	},
 	"plugins": ["optimize-regex"],
-	"extends": ["eslint:recommended", "plugin:optimize-regex/recommended"],
+	"extends": ["eslint:recommended", "plugin:optimize-regex/recommended", "plugin:jsdoc/recommended"],
 	"parserOptions": {
 		"sourceType": "module",
 		"ecmaVersion": "latest",
@@ -15,6 +15,13 @@
 		}
 	},
 	"rules": {
+		// eslint-plugin-jsdoc
+		"jsdoc/require-jsdoc": ["warn", { "enableFixer": false }],
+		"jsdoc/no-blank-blocks": ["error", { "enableFixer": true }],
+		"jsdoc/require-param-description": 0,
+		"jsdoc/tag-lines": ["error", "any", { "startLines": 1 }],
+		"jsdoc/require-returns-description": 0,
+		// other rules
 		"no-undef": ["error", { "typeof": true }],
 		"no-global-assign": ["error"],
 		"no-var": ["error"],
@@ -53,7 +60,6 @@
 		"no-await-in-loop": ["warn"],
 		"no-loss-of-precision": ["warn"],
 		"no-useless-backreference": ["error"],
-		"require-atomic-updates": ["error"],
 		"array-callback-return": ["error"],
 		"no-return-await": ["error"],
 		"no-loop-func": ["error"],
