@@ -1,5 +1,6 @@
 {
 	"ActuallyPrivateRolls": {
+		"PrivateMessage": "{user} privately did something",
 		"Settings": {
 			"HalfBlind": {
 				"Label": "Half-blind",

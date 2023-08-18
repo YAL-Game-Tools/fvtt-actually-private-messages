@@ -27,6 +27,17 @@ const getMessageVisibility = (cm) => {
 }
 
 /**
+ * Find user name, even if user info has not been initialized yet
+ *
+ * @param {ChatMessage} cm
+ */
+function getUserName(cm) {
+	const userId = cm._source.user;
+	const user = cm.user ?? game.data.users.find(i => i._id == userId);
+	return user?.name;
+}
+
+/**
  * Hide private messages entirely.
  *
  * @param {ChatMessage} cm
@@ -40,7 +51,15 @@ const renderChatMessageEvent = (cm, [html]) => {
 	const baseMsg = html.dataset.messageId ? html : html.closest('[data-message-id]');
 	if (game.settings.get(CFG.id, CFG.SETTINGS.halfBlind) && isAuthor && isBlind) {
 		baseMsg?.querySelector('.message-content')?.replaceChildren();
-		// baseMsg?.querySelector('.flavor-text');
+		const header = baseMsg?.querySelector('.message-header');
+		const flavor = header?.querySelector('.flavor-text');
+		if (!flavor) {
+			const msg = document.createElement('span');
+			msg.classList.add('flavor-text');
+			const userName = getUserName(cm);
+			msg.textContent = game.i18n.format('ActuallyPrivateRolls.PrivateMessage', { user: userName });
+			header?.append(msg);
+		}
 	}
 	else
 		baseMsg.classList.toggle('actually-private-roll', !isVisible);
