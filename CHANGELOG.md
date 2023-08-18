@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.3.0
+
+- New: Option for allowing GM to still see everything. Default disabled.
+  Previous behaviour is same as this option disabled.
+- Fix: Private non-rolls rendered weird.
+
 ## 1.2.0.1
 
 - Fix chat message notification not behaving as expected since 1.2
