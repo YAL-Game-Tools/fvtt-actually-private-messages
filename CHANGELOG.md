@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.3.0.1
+
+- Fix: Blind GM rolls are no longer hidden from GM even though they're authors of blind rolls.
+
 ## 1.3.0
 
 - New: Option for allowing GM to still see everything. Default disabled.

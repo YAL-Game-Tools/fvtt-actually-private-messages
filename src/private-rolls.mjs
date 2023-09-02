@@ -2,6 +2,8 @@ import { CFG } from './config.mjs';
 import './settings.mjs';
 
 const isMessageVisible = ({ isBlind, isAuthor, isWhisper, whisper } = {}) => {
+	// GM always sees their own message, even if it's blind GM roll
+	if (isAuthor && game.user.isGM) return true;
 	// Blind rolls are not visible to author
 	if (isBlind && isAuthor) return false;
 	// Whispers are only visible to recipients and author
@@ -47,9 +49,9 @@ const renderChatMessageEvent = (cm, [html]) => {
 	// GM always sees everything?
 	if (game.user.isGM && game.settings.get(CFG.id, CFG.SETTINGS.allSeeingGM)) return;
 
-	const { isAuthor, isBlind, isVisible } = getMessageVisibility(cm);
+	const { isAuthor, isVisible } = getMessageVisibility(cm);
 	const baseMsg = html.dataset.messageId ? html : html.closest('[data-message-id]');
-	if (game.settings.get(CFG.id, CFG.SETTINGS.halfBlind) && isAuthor && isBlind) {
+	if (game.settings.get(CFG.id, CFG.SETTINGS.halfBlind) && isAuthor && !isVisible) {
 		baseMsg?.querySelector('.message-content')?.replaceChildren();
 		const header = baseMsg?.querySelector('.message-header');
 		const flavor = header?.querySelector('.flavor-text');
