@@ -23,7 +23,7 @@ const mappings = [
 
 mappings.forEach(m => m.glob = new Glob(m.source));
 
-const transformPath = (path) => path.replace(/^release[/\\]/, '');
+const transformPath = (path) => path.replace(/^(\.[/\\])?release[/\\]/, '');
 
 const syncFile = (npath, type) => {
 	const spath = path.join('./', npath);
