@@ -1,14 +1,18 @@
-import chokidar from 'chokidar';
+import { watch } from 'fs/promises';
+import { Glob } from 'bun';
 import fs from 'node:fs';
-import path from 'node:path';
-import process from 'node:process';
+import path from 'path';
+import process from 'process';
 
 const debug = false;
 
 const DEST = './dist/';
 
 const args = process.argv.slice(2);
-const watch = args.includes('--watch');
+const doWatch = args.includes('--watch');
+
+const ignore = ['.git/**/*', 'scripts/**/*']
+	.map(m => new Glob(m));
 
 const mappings = [
 	{ source: './release/*', target: '.' },
@@ -17,18 +21,11 @@ const mappings = [
 	{ source: './lang/**/*.json', target: './lang' },
 ];
 
+mappings.forEach(m => m.glob = new Glob(m.source));
+
 const transformPath = (path) => path.replace(/^release[/\\]/, '');
 
-const watcher = chokidar.watch(mappings.shift().source, {
-	ignored: /(^|[/\\])\../,
-	persistent: watch,
-	alwaysStat: false,
-	useFsEvents: true,
-	usePolling: false,
-	followSymlinks: true
-});
-
-const fileEvent = (npath, type) => {
+const syncFile = (npath, type) => {
 	const spath = path.join('./', npath);
 	const tpath = transformPath(npath);
 	const dpath = path.join(DEST, tpath);
@@ -44,13 +41,32 @@ const fileEvent = (npath, type) => {
 		console.error(err);
 		console.log(type, ':', spath, '->', dpath);
 	}
+	// TODO: Debounce
 	fs.cpSync(spath, dpath, { recursive: true });
+};
+
+for (const m of mappings) {
+	for (const file of m.glob.scanSync()) {
+		syncFile(file, 'add');
+	}
 }
 
-watcher
-	.on('add', npath => fileEvent(npath, 'Added'))
-	.on('change', npath => fileEvent(npath, 'Changed'))
-	.on('error', err => console.error(err));
+// Stop here if not watching
+if (!doWatch) process.exit(0);
 
-for (const m of mappings)
-	watcher.add(m.source);
+const watcher = watch('.', { recursive: true });
+
+// close watcher when Ctrl-C is pressed
+process.on('SIGINT', () => {
+	console.log('Closing watcher...');
+	watcher.close();
+	process.exit(0);
+});
+
+for await (const event of watcher) {
+	if (ignore.some(g => g.match(event.filename))) continue;
+	const match = mappings.find(m => m.glob.match(event.filename));
+	if (!match) continue;
+
+	syncFile(event.filename, event.eventType);
+}

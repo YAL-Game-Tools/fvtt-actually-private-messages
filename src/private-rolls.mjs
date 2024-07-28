@@ -10,7 +10,7 @@ const isMessageVisible = ({ isBlind, isAuthor, isWhisper, whisper } = {}) => {
 	if (isWhisper) return isAuthor || whisper.includes(game.user.id);
 	// All others are visible
 	return true;
-}
+};
 
 /**
  * Test message visibility.
@@ -26,7 +26,7 @@ const getMessageVisibility = (cm) => {
 		isVisible = isMessageVisible({ isWhisper, isBlind, isAuthor, whisper });
 
 	return { whisper, isWhisper, isBlind, isAuthor, isVisible };
-}
+};
 
 /**
  * Find user name, even if user info has not been initialized yet
@@ -65,7 +65,7 @@ const renderChatMessageEvent = (cm, [html]) => {
 	}
 	else
 		baseMsg.classList.toggle('actually-private-roll', !isVisible);
-}
+};
 
 Hooks.on('renderChatMessage', renderChatMessageEvent);
 // Hooks.on('updateChatMessage', ...); // unnecessary

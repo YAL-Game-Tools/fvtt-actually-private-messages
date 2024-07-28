@@ -20,6 +20,6 @@ const registerPrivateRollsSettings = () => {
 		requiresReload: true,
 		config: true,
 	});
-}
+};
 
 Hooks.once('init', registerPrivateRollsSettings);
