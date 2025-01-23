@@ -1,7 +1,7 @@
 {
 	"id": "actually-private-rolls",
 	"name": "actually-private-rolls",
-	"title": "Actually Private Messages (ex Actually Private Rolls)",
+	"title": "Actually Private Messages",
 	"description": "Enforces privacy for whispered and self targeted chat messages by hiding them from those they're not for, eliminating new message notifications, and silencing the roll sound of unseen rolls.",
 	"version": "1.3.0.1",
 	"authors": [
@@ -23,7 +23,7 @@
 	"minimumCoreVersion": "0.8.8",
 	"compatibility": {
 		"minimum": "0.8.8",
-		"verified": 11
+		"verified": 12
 	},
 	"dependencies": [
 		{
