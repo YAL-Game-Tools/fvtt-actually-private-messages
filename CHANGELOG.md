@@ -1,6 +1,6 @@
 # Change Log
 
-## NEXT
+## 1.4
 
 - Maintenance release.
 - Confirmed v13 compatibility.
