@@ -1,43 +1,14 @@
 {
 	"id": "actually-private-rolls",
-	"name": "actually-private-rolls",
 	"title": "Actually Private Messages",
 	"description": "Enforces privacy for whispered and self targeted chat messages by hiding them from those they're not for, eliminating new message notifications, and silencing the roll sound of unseen rolls.",
 	"version": "1.3.0.1",
-	"authors": [
-		{
-			"name": "MKAh",
-			"url": "https://gitlab.com/mkahvi",
-			"discord": "manaflower",
-			"ko-fi": "mkahvi"
-		}
-	],
+	"authors": [{ "name": "MKAh", "url": "https://gitlab.com/mkahvi", "discord": "manaflower", "ko-fi": "mkahvi" }],
 	"esmodules": ["private-rolls.mjs"],
 	"styles": ["private-rolls.css"],
-	"languages": [
-		{
-			"lang": "en",
-			"path": "lang/en.json"
-		}
-	],
-	"minimumCoreVersion": "0.8.8",
-	"compatibility": {
-		"minimum": "0.8.8",
-		"verified": 12
-	},
-	"dependencies": [
-		{
-			"name": "lib-wrapper"
-		}
-	],
-	"relationships": {
-		"requires": [
-			{
-				"id": "lib-wrapper",
-				"type": "module"
-			}
-		]
-	},
+	"languages": [{ "lang": "en", "path": "lang/en.json" }],
+	"compatibility": { "minimum": 12, "verified": 13 },
+	"relationships": { "requires": [{ "id": "lib-wrapper", "type": "module" }] },
 	"license": "https://gitlab.com/koboldworks/agnostic/private-rolls/-/raw/main/LICENSE",
 	"readme": "https://gitlab.com/koboldworks/agnostic/private-rolls/-/raw/main/README.md",
 	"changelog": "https://gitlab.com/koboldworks/agnostic/private-rolls/-/raw/main/CHANGELOG.md",

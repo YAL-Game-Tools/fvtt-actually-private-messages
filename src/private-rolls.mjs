@@ -18,10 +18,9 @@ const isMessageVisible = ({ isBlind, isAuthor, isWhisper, whisper } = {}) => {
  * @param {ChatMessage} cm
  */
 const getMessageVisibility = (cm) => {
-	const cmData = game.release.generation >= 10 ? cm : cm.data,
-		whisper = cmData.whisper ?? [],
+	const whisper = cm.whisper ?? [],
 		isWhisper = whisper.length > 0,
-		isBlind = isWhisper && cmData.blind,
+		isBlind = isWhisper && cm.blind,
 		isAuthor = cm.isAuthor,
 		isVisible = isMessageVisible({ isWhisper, isBlind, isAuthor, whisper });
 
@@ -75,17 +74,17 @@ Hooks.on('renderChatMessage', renderChatMessageEvent);
  *
  * @param {Function} wrapped
  * @param {ChatMessage} cm
+ * @param {object} options - New in v13. Are these even used?
  */
-function chatLogNotifyWrapper(wrapped, cm) {
+function chatLogNotifyWrapper(wrapped, cm, options) {
 	const { isVisible } = getMessageVisibility(cm);
 	if (!isVisible) return;
-	wrapped.call(this, cm);
+	wrapped.call(this, cm, options);
 }
 
 Hooks.once('init', () => {
-	// BUG: This might not work on all systems, in case they extend ChatLog
 	/* global libWrapper */
-	libWrapper.register(CFG.id, 'ChatLog.prototype.notify', chatLogNotifyWrapper, libWrapper.MIXED);
+	libWrapper.register(CFG.id, 'CONFIG.ui.chat.prototype.notify', chatLogNotifyWrapper, libWrapper.MIXED);
 });
 
 Hooks.once('ready', () => {
