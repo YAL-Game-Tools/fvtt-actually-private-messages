@@ -1,6 +1,10 @@
 node_modules
 dist
 *.code-workspace
-foundry*.js
-*.lock
+.vscode
+*.tgz
+*.zip
 .eslintcache
+foundry
+*.lock
+!bun.lock

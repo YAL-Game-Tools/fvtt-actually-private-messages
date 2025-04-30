@@ -1,5 +1,11 @@
 # Change Log
 
+## NEXT
+
+- Maintenance release.
+- Confirmed v13 compatibility.
+- Dropping support for older versions than 12 as they've been fine with older releases for over a year with no reported issues.
+
 ## 1.3.0.1
 
 - Fix: Blind GM rolls are no longer hidden from GM even though they're authors of blind rolls.

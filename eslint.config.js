@@ -5,14 +5,21 @@ import jsdoc from 'eslint-plugin-jsdoc';
 import { foundry } from './eslint.foundry.js';
 
 export default [
+	{
+		ignores: [
+			'**/node_modules',
+			'foundry/',
+			'**/dist',
+			'packs/',
+			'template/',
+			'lang/',
+			'scss/',
+			'css/',
+			'img/',
+		],
+	},
 	js.configs.recommended,
 	{
-		// files: ["src/**/*.mjs"],
-		ignores: [
-			'**/node_modules/**/*',
-			'**/dist/**/*',
-			'**/foundry*.js',
-		],
 		languageOptions: {
 			ecmaVersion: 2022,
 			sourceType: 'module',

@@ -1,5 +1,4 @@
-dist
-node_modules
-foundry*.js
+/node_modules/
+/foundry/
+/dist/
 *.lock
-*.map
