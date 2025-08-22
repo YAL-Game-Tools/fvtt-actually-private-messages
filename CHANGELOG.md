@@ -1,8 +1,9 @@
 # Change Log
 
-## NEXT
+## 1.5
 
 - Fix: Half-blind mode did not show notification for own messages [#7]
+- Change: Foundry v12 support dropped.
 
 ## 1.4
 
