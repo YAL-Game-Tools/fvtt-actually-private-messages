@@ -42,9 +42,11 @@ function getUserName(cm) {
  * Hide private messages entirely.
  *
  * @param {ChatMessage} cm
- * @param {JQuery} html
+ * @param {JQuery<HTMLElement>} html
  */
-const renderChatMessageEvent = (cm, [html]) => {
+const renderChatMessageEvent = (cm, html) => {
+	if (html.find) html = html[0];
+
 	// GM always sees everything?
 	if (game.user.isGM && game.settings.get(CFG.id, CFG.SETTINGS.allSeeingGM)) return;
 
@@ -66,9 +68,6 @@ const renderChatMessageEvent = (cm, [html]) => {
 		baseMsg.classList.toggle('actually-private-roll', !isVisible);
 };
 
-Hooks.on('renderChatMessage', renderChatMessageEvent);
-// Hooks.on('updateChatMessage', ...); // unnecessary
-
 /**
  * Eliminate new message notification if the message is not visible.
  *
@@ -83,6 +82,11 @@ function chatLogNotifyWrapper(wrapped, cm, options) {
 }
 
 Hooks.once('init', () => {
+	if (game.release.generation >= 13)
+		Hooks.on('renderChatMessageHTML', renderChatMessageEvent);
+	else
+		Hooks.on('renderChatMessage', renderChatMessageEvent);
+
 	/* global libWrapper */
 	libWrapper.register(CFG.id, 'CONFIG.ui.chat.prototype.notify', chatLogNotifyWrapper, libWrapper.MIXED);
 });

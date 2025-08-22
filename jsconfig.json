@@ -1,36 +1,28 @@
 {
 	"$schema": "https://json.schemastore.org/jsconfig",
 	"compilerOptions": {
-		"target": "es2020",
+		"target": "esnext",
 		"module": "es6",
-		"lib": ["dom", "es6", "es7", "es2020", "esnext"],
-		"types": ["@league-of-foundry-developers/foundry-vtt-types/index-lenient"],
-		"moduleResolution": "node",
-		"skipLibCheck": true,
-		"noImplicitAny": true,
+		"lib": ["dom", "esnext"],
+		"types": ["@league-of-foundry-developers/foundry-vtt-types"],
+		"moduleResolution": "bundler",
+		"noImplicitAny": false,
 		"noImplicitThis": true,
+		"allowJs": true,
 		"checkJs": true,
-		"allowSyntheticDefaultImports": false,
 		"disableReferencedProjectLoad": true,
-		"experimentalDecorators": false,
-		"isolatedModules": true,
 		"strict": true,
-		"alwaysStrict": true,
 		"strictFunctionTypes": true,
 		"strictBindCallApply": true,
 		"strictNullChecks": true,
-		"strictPropertyInitialization": true,
-		"forceConsistentCasingInFileNames": true,
-		"newLine": "lf"
+		"strictPropertyInitialization": false,
+		"forceConsistentCasingInFileNames": false
 	},
 	"display": "Recommended",
-	"exclude": ["node_modules", "template"],
+	"include": ["src/**/*.mjs", "@types/**/*.d.ts", "foundry/client/", "foundry/common/", "**/*.d.ts"],
+	"exclude": ["node_modules", "template", "dist"],
 	"typeAcquisition": {
 		"enable": true,
-		"include": [
-			"jquery",
-			"handlebars",
-			"@league-of-foundry-developers/foundry-vtt-types"
-		]
+		"include": ["@league-of-foundry-developers/foundry-vtt-types"]
 	}
 }
