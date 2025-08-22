@@ -77,7 +77,11 @@ const renderChatMessageEvent = (cm, html) => {
  */
 function chatLogNotifyWrapper(wrapped, cm, options) {
 	const { isVisible } = getMessageVisibility(cm);
-	if (!isVisible) return;
+	const halfBlind = game.settings.get(CFG.id, CFG.SETTINGS.halfBlind);
+
+	if (halfBlind && cm.isAuthor) { /* Ignore */ }
+	else if (!isVisible) return;
+
 	wrapped.call(this, cm, options);
 }
 

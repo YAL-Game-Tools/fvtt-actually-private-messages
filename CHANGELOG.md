@@ -1,5 +1,9 @@
 # Change Log
 
+## NEXT
+
+- Fix: Half-blind mode did not show notification for own messages [#7]
+
 ## 1.4
 
 - Maintenance release.
