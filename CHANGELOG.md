@@ -1,5 +1,9 @@
 # Change Log
 
+## NEXT
+
+- Fix: Module could lose functionality if another module replaced the chat log (e.g. Midi QOL).
+
 ## 1.5
 
 - Fix: Half-blind mode did not show notification for own messages [#7]

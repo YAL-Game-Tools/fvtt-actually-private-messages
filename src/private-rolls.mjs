@@ -1,7 +1,46 @@
-import { CFG } from './config.mjs';
-import './settings.mjs';
+const CFG = /** @type {const} */ ({
+	id: 'actually-private-rolls',
+	SETTINGS: {
+		halfBlind: 'halfBlind',
+		allSeeingGM: 'allSeeingGM',
+	},
+});
 
-const isMessageVisible = ({ isBlind, isAuthor, isWhisper, whisper } = {}) => {
+let halfBlind = false,
+	allSeeingGM = false;
+
+const registerPrivateMessagesSettings = () => {
+	game.settings.register(CFG.id, CFG.SETTINGS.halfBlind, {
+		name: 'ActuallyPrivateRolls.Settings.HalfBlind.Label',
+		hint: 'ActuallyPrivateRolls.Settings.HalfBlind.Hint',
+		scope: 'world',
+		type: Boolean,
+		default: true,
+		requiresReload: true,
+		config: true,
+		onChange: value => { halfBlind = value; },
+	});
+
+	game.settings.register(CFG.id, CFG.SETTINGS.allSeeingGM, {
+		name: 'ActuallyPrivateRolls.Settings.AllSeeingGM.Label',
+		hint: 'ActuallyPrivateRolls.Settings.AllSeeingGM.Hint',
+		scope: 'world',
+		type: Boolean,
+		default: false,
+		requiresReload: true,
+		config: true,
+		onChange: value => { allSeeingGM = value; },
+	});
+
+	halfBlind = game.settings.get(CFG.id, CFG.SETTINGS.halfBlind);
+	allSeeingGM = game.settings.get(CFG.id, CFG.SETTINGS.allSeeingGM);
+};
+
+/**
+ * @param {*} options
+ * @returns {boolean}
+ */
+function isMessageVisible({ isBlind, isAuthor, isWhisper, whisper } = {}) {
 	// GM always sees their own message, even if it's blind GM roll
 	if (isAuthor && game.user.isGM) return true;
 	// Blind rolls are not visible to author
@@ -17,9 +56,9 @@ const isMessageVisible = ({ isBlind, isAuthor, isWhisper, whisper } = {}) => {
  *
  * @param {ChatMessage} cm
  */
-const getMessageVisibility = (cm) => {
-	const whisper = cm.whisper ?? [],
-		isWhisper = whisper.length > 0,
+function getMessageVisibility(cm) {
+	const whisper = cm.whisper,
+		isWhisper = whisper?.length > 0,
 		isBlind = isWhisper && cm.blind,
 		isAuthor = cm.isAuthor,
 		isVisible = isMessageVisible({ isWhisper, isBlind, isAuthor, whisper });
@@ -28,39 +67,25 @@ const getMessageVisibility = (cm) => {
 };
 
 /**
- * Find user name, even if user info has not been initialized yet
- *
- * @param {ChatMessage} cm
- */
-function getUserName(cm) {
-	const userId = cm._source.user;
-	const user = cm.user ?? game.data.users.find(i => i._id == userId);
-	return user?.name;
-}
-
-/**
  * Hide private messages entirely.
  *
  * @param {ChatMessage} cm
- * @param {JQuery<HTMLElement>} html
+ * @param {HTMLElement} html
  */
-const renderChatMessageEvent = (cm, html) => {
-	if (html.find) html = html[0];
-
+function onRenderChatMessage(cm, html) {
 	// GM always sees everything?
-	if (game.user.isGM && game.settings.get(CFG.id, CFG.SETTINGS.allSeeingGM)) return;
+	if (game.user.isGM && allSeeingGM) return;
 
 	const { isAuthor, isVisible } = getMessageVisibility(cm);
-	const baseMsg = html.dataset.messageId ? html : html.closest('[data-message-id]');
-	if (game.settings.get(CFG.id, CFG.SETTINGS.halfBlind) && isAuthor && !isVisible) {
-		baseMsg?.querySelector('.message-content')?.replaceChildren();
-		const header = baseMsg?.querySelector('.message-header');
+
+	if (halfBlind && isAuthor && !isVisible) {
+		html.querySelector('.message-content')?.replaceChildren();
+		const header = html.querySelector('.message-header');
 		const flavor = header?.querySelector('.flavor-text');
 		if (!flavor) {
 			const msg = document.createElement('span');
 			msg.classList.add('flavor-text');
-			const userName = getUserName(cm);
-			msg.textContent = game.i18n.format('ActuallyPrivateRolls.PrivateMessage', { user: userName });
+			msg.textContent = game.i18n.format('ActuallyPrivateRolls.PrivateMessage', { user: cm.user.name });
 			header?.append(msg);
 		}
 	}
@@ -75,27 +100,25 @@ const renderChatMessageEvent = (cm, html) => {
  * @param {ChatMessage} cm
  * @param {object} options - New in v13. Are these even used?
  */
-function chatLogNotifyWrapper(wrapped, cm, options) {
-	const { isVisible } = getMessageVisibility(cm);
-	const halfBlind = game.settings.get(CFG.id, CFG.SETTINGS.halfBlind);
-
+function onChatLogNotify(wrapped, cm, ...options) {
 	if (halfBlind && cm.isAuthor) { /* Ignore */ }
-	else if (!isVisible) return;
+	else {
+		const { isVisible } = getMessageVisibility(cm);
+		if (!isVisible) return;
+	}
 
-	wrapped.call(this, cm, options);
+	return wrapped(cm, ...options);
 }
 
-Hooks.once('init', () => {
-	if (game.release.generation >= 13)
-		Hooks.on('renderChatMessageHTML', renderChatMessageEvent);
-	else
-		Hooks.on('renderChatMessage', renderChatMessageEvent);
+Hooks.once('init', registerPrivateMessagesSettings);
+
+// Register here instead of root scope or init to ensure this happens later than other modules
+// Allows other modules to replace or extend chat log in init
+Hooks.once('setup', () => {
+	Hooks.on('renderChatMessageHTML', onRenderChatMessage);
 
 	/* global libWrapper */
-	libWrapper.register(CFG.id, 'CONFIG.ui.chat.prototype.notify', chatLogNotifyWrapper, libWrapper.MIXED);
-});
-
-Hooks.once('ready', () => {
+	libWrapper.register(CFG.id, 'CONFIG.ui.chat.prototype.notify', onChatLogNotify, libWrapper.MIXED);
 	const mod = game.modules.get(CFG.id);
-	console.log('Actually Private Rolls |', mod.version);
+	console.log(mod.title, '|', mod.version, '| Ready | Hooked into', CONFIG.ui.chat.name);
 });
