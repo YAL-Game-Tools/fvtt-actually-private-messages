@@ -2,9 +2,9 @@
  * Finalize release data and trigger release build CI
  */
 
-import fs from 'fs';
+import fs from 'node:fs';
 import { execSync } from 'node:child_process';
-import process from 'process';
+import process from 'node:process';
 import prettier from 'prettier';
 
 // TODO: generate version and make sure it does not conflict with existing release tags.
@@ -12,13 +12,13 @@ import prettier from 'prettier';
 const MANIFEST = './static/module.json',
 	CHANGELOG = './CHANGELOG.md';
 
-const args = process.argv.slice(2);
+const args = new Set(process.argv.slice(2));
 
-const isHotFix = args.includes('hotfix');
-const isBugFix = (args.includes('fix') || args.includes('patch')) && !isHotFix;
-const isMajor = args.includes('major') && !isBugFix;
+const isHotFix = args.has('hotfix');
+const isBugFix = (args.has('fix') || args.has('patch')) && !isHotFix;
+const isMajor = args.has('major') && !isBugFix;
 const isMinor = !isHotFix && !isBugFix && !isMajor;
-const release = isMajor ? 'major' : isMinor ? 'minor' : 'fix';
+const release = isMajor ? 'major' : (isMinor ? 'minor' : 'fix');
 
 console.log('Release type:', release);
 
@@ -47,8 +47,7 @@ switch (release) {
 	case 'fix': patchVer += 1; break;
 }
 
-let newVersion = [majorVer, minorVer, patchVer].join('.');
-newVersion = newVersion.replace(/\.0$/, ''); // Remove patch if not present
+const newVersion = [majorVer, minorVer, patchVer].join('.');
 
 console.log('New version:', [majorVer, minorVer, patchVer], '=', newVersion);
 
@@ -66,12 +65,11 @@ json.download = newDownload;
 // changelog update
 const chlog = fs.readFileSync(CHANGELOG, { encoding: 'utf8' });
 const chlogu = chlog.replace(/^## NEXT$/m, `## ${json.version}`);
-if (chlog !== chlogu) {
+if (chlog === chlogu) { console.log('Changelog needs no update'); }
+else {
 	console.log('Changelog updated');
 	fs.writeFileSync(CHANGELOG, chlogu, 'utf8');
 }
-else
-	console.log('Changelog needs no update');
 
 // Replace version in download string
 if (sameVer > 1) {
@@ -79,7 +77,7 @@ if (sameVer > 1) {
 }
 else {
 	const pConfig = await prettier.resolveConfig('.');
-	const formattedJson = await prettier.format(JSON.stringify(json, null, '\t'), { ...pConfig, parser: 'json' });
+	const formattedJson = await prettier.format(JSON.stringify(json, undefined, '\t'), { ...pConfig, parser: 'json' });
 	fs.writeFileSync(MANIFEST, formattedJson);
 	console.log('module.json updated');
 }
