@@ -1,6 +1,6 @@
 # Change Log
 
-## NEXT
+## 1.6.0
 
 - Fix: Module could lose functionality if another module replaced the chat log (e.g. Midi QOL).
 
