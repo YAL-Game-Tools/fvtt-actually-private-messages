@@ -2,7 +2,7 @@
 	"id": "actually-private-rolls",
 	"title": "Actually Private Messages",
 	"description": "Enforces privacy for whispered and self targeted chat messages by hiding them from those they're not for, eliminating new message notifications, and silencing the roll sound of unseen rolls.",
-	"version": "1.6.0",
+	"version": "1.6.1",
 	"authors": [
 		{
 			"name": "MKAh",
@@ -35,7 +35,7 @@
 	"readme": "https://gitlab.com/koboldworks/agnostic/private-rolls/-/raw/main/README.md",
 	"changelog": "https://gitlab.com/koboldworks/agnostic/private-rolls/-/raw/main/CHANGELOG.md",
 	"manifest": "https://gitlab.com/koboldworks/agnostic/private-rolls/-/releases/permalink/latest/downloads/module.json",
-	"download": "https://gitlab.com/koboldworks/agnostic/private-rolls/-/releases/1.6.0/downloads/private-rolls.zip",
+	"download": "https://gitlab.com/koboldworks/agnostic/private-rolls/-/releases/1.6.1/downloads/private-rolls.zip",
 	"url": "https://gitlab.com/koboldworks/agnostic/private-rolls",
 	"bugs": "https://gitlab.com/koboldworks/agnostic/private-rolls/-/issues"
 }
