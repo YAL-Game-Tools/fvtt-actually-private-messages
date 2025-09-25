@@ -20,13 +20,15 @@
 	"scripts": {
 		"lint:js": "bunx eslint . --quiet --cache",
 		"lint:js:fix": "bunx eslint . --quiet --cache --fix",
-		"release": "bun run build && bun ./scripts/release.mjs",
-		"build": "bun run js && bun run sync",
+		"release": "bun rebuild && bun ./scripts/release.mjs",
+		"build": "bun js && bun css && bun sync",
 		"rebuild": "bun run build",
 		"sync": "bun ./scripts/sync-files.mjs",
 		"sync:watch": "bun ./scripts/sync-files.mjs --watch",
 		"js": "bun build src/private-rolls.mjs --sourcemap=linked --minify-whitespace --outdir dist --entry-naming [name].mjs",
 		"js:watch": "bun build src/private-rolls.mjs --sourcemap=linked --minify-whitespace --outdir dist --entry-naming [name].mjs --watch",
+		"css": "bun build css/private-rolls.css --minify-whitespace --outdir dist --entry-naming [name].css",
+		"css:watch": "bun build css/private-rolls.css --minify-whitespace --outdir dist --entry-naming [name].css --watch",
 		"prettier": "bunx prettier --write --cache ."
 	},
 	"source": "private-rolls.mjs",

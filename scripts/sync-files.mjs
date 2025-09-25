@@ -2,11 +2,11 @@
  * Sync static files
  */
 
-import { watch } from 'fs/promises';
+import { watch } from 'node:fs/promises';
 import { Glob } from 'bun';
 import fs from 'node:fs';
-import path from 'path';
-import process from 'process';
+import path from 'node:path';
+import process from 'node:process';
 
 const DEST = './dist/';
 
@@ -21,11 +21,10 @@ const mappings = [
 	{ source: '*.md', target: '.' },
 	{ source: 'LICENSE', target: '.' },
 	{ source: 'lang/**/*.json', target: './lang' },
-	{ source: 'css/**/*.css', target: '.' },
 ];
 
 if (mappings.some(m => m.source.startsWith('.'))) throw new Error('Invalid paths');
-mappings.forEach(m => m.glob = new Glob(m.source));
+for (const m of mappings) m.glob = new Glob(m.source);
 
 const transformPath = (path) => path.replace(/^(\.[/\\])?static[/\\]/, '');
 
@@ -135,9 +134,14 @@ while (true) {
 		const match = mappings.find(m => m.glob.match(event.filename));
 		if (!match) {
 			// Scan a directory on rename
-			if (event.eventType === 'change' && fs.lstatSync(event.filename)?.isDirectory()) {
-				const m = mappings.find(m => event.filename.startsWith(m.prefix));
-				syncMapping(m);
+			try {
+				if (event.eventType === 'change' && fs.lstatSync(event.filename)?.isDirectory()) {
+					const m = mappings.find(m => event.filename.startsWith(m.prefix));
+					syncMapping(m);
+				}
+			}
+			catch {
+				// Ignore, file missing
 			}
 			continue;
 		}
