@@ -1,0 +1,3 @@
+.chat-message.actually-private-message {
+	display: none !important;
+}

@@ -65,7 +65,7 @@ const renderChatMessageEvent = (cm, html) => {
 		}
 	}
 	else
-		baseMsg.classList.toggle('actually-private-roll', !isVisible);
+		html.classList.toggle('actually-private-message', !isVisible);
 };
 
 /**

@@ -21,6 +21,7 @@ const mappings = [
 	{ source: '*.md', target: '.' },
 	{ source: 'LICENSE', target: '.' },
 	{ source: 'lang/**/*.json', target: './lang' },
+	{ source: 'css/**/*.css', target: '.' },
 ];
 
 if (mappings.some(m => m.source.startsWith('.'))) throw new Error('Invalid paths');

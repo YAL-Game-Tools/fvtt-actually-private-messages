@@ -7,8 +7,7 @@
 		"eslint-plugin-jsdoc": "^54.1.1",
 		"husky": "^9.1.7",
 		"lint-staged": "^16.1.5",
-		"prettier": "^3.6.2",
-		"sass": "^1.90.0"
+		"prettier": "^3.6.2"
 	},
 	"engines": {
 		"bun": ">=1.1.21"
@@ -22,14 +21,12 @@
 		"lint:js": "bunx eslint . --quiet --cache",
 		"lint:js:fix": "bunx eslint . --quiet --cache --fix",
 		"release": "bun run build && bun ./scripts/release.mjs",
-		"build": "bun run js && bun run css && bun run sync",
+		"build": "bun run js && bun run sync",
 		"rebuild": "bun run build",
 		"sync": "bun ./scripts/sync-files.mjs",
 		"sync:watch": "bun ./scripts/sync-files.mjs --watch",
 		"js": "bun build src/private-rolls.mjs --sourcemap=linked --minify-whitespace --outdir dist --entry-naming [name].mjs",
 		"js:watch": "bun build src/private-rolls.mjs --sourcemap=linked --minify-whitespace --outdir dist --entry-naming [name].mjs --watch",
-		"css": "bunx sass -s compressed ./scss/private-rolls.scss ./dist/private-rolls.css",
-		"css:watch": "bunx sass -s compressed --watch ./scss/private-rolls.scss ./dist/private-rolls.css",
 		"prettier": "bunx prettier --write --cache ."
 	},
 	"source": "private-rolls.mjs",
