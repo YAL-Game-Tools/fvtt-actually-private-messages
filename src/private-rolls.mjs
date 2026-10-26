@@ -2,11 +2,13 @@ const CFG = /** @type {const} */ ({
 	id: 'actually-private-rolls',
 	SETTINGS: {
 		halfBlind: 'halfBlind',
+		halfBlindForOthers: 'halfBlindForOthers',
 		allSeeingGM: 'allSeeingGM',
 	},
 });
 
 let halfBlind = false,
+	halfBlindForOthers = false,
 	allSeeingGM = false;
 
 const registerPrivateMessagesSettings = () => {
@@ -19,6 +21,17 @@ const registerPrivateMessagesSettings = () => {
 		requiresReload: true,
 		config: true,
 		onChange: value => { halfBlind = value; },
+	});
+	
+	game.settings.register(CFG.id, CFG.SETTINGS.halfBlindForOthers, {
+		name: 'ActuallyPrivateRolls.Settings.HalfBlindForOthers.Label',
+		hint: 'ActuallyPrivateRolls.Settings.HalfBlindForOthers.Hint',
+		scope: 'world',
+		type: Boolean,
+		default: false,
+		requiresReload: true,
+		config: true,
+		onChange: value => { halfBlindForOthers = value; },
 	});
 
 	game.settings.register(CFG.id, CFG.SETTINGS.allSeeingGM, {
@@ -33,6 +46,7 @@ const registerPrivateMessagesSettings = () => {
 	});
 
 	halfBlind = game.settings.get(CFG.id, CFG.SETTINGS.halfBlind);
+	halfBlindForOthers = game.settings.get(CFG.id, CFG.SETTINGS.halfBlindForOthers);
 	allSeeingGM = game.settings.get(CFG.id, CFG.SETTINGS.allSeeingGM);
 };
 
@@ -78,7 +92,9 @@ function onRenderChatMessage(cm, html) {
 
 	const { isAuthor, isVisible } = getMessageVisibility(cm);
 
-	if (halfBlind && isAuthor && !isVisible) {
+	if (!isVisible && (
+		(halfBlind && isAuthor) || (halfBlindForOthers && !cm.author.isGM)
+	)) {
 		html.querySelector('.message-content')?.replaceChildren();
 		const header = html.querySelector('.message-header');
 		const flavor = header?.querySelector('.flavor-text');
@@ -102,6 +118,7 @@ function onRenderChatMessage(cm, html) {
  */
 function onChatLogNotify(wrapped, cm, ...options) {
 	if (halfBlind && cm.isAuthor) { /* Ignore */ }
+	else if (halfBlindForOthers && !cm.author.isGM) { /* Ignore */ }
 	else {
 		const { isVisible } = getMessageVisibility(cm);
 		if (!isVisible) return;
