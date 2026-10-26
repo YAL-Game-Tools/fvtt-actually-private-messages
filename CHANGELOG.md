@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.6.1.1
+
+- Now with a "half-blind for others" checkbox
+
 ## 1.6.0
 
 - Fix: Module could lose functionality if another module replaced the chat log (e.g. Midi QOL).
