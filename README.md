@@ -8,7 +8,7 @@ Includes option to keep blind rolls partially visible to author, default enabled
 
 ## Install
 
-Manifest URL: <https://gitlab.com/koboldworks/agnostic/private-rolls/-/releases/permalink/latest/downloads/module.json>
+Manifest URL: <https://github.com/YAL-Game-Tools/fvtt-actually-private-messages/releases/latest/download/module.json>
 
 ## Attribution
 

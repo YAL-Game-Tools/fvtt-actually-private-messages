@@ -6,7 +6,7 @@
 				"Label": "Half-blind",
 				"Hint": "Blind rolls are partially visible to message author. This solves the problem of players being uncertain if their roll even happened."
 			},
-			"HalfBlind": {
+			"HalfBlindForOthers": {
 				"Label": "Half-blind for others",
 				"Hint": "Also allows to see if other players (but not the GM) made a roll."
 			},
